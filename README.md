@@ -1,3 +1,9 @@
+# RPLidar A3
+
+This work has begun from https://github.com/Club-INTech/rplidar_a2. 
+
+## Measures
+
 TCP server is on port 17685
 
 Connecting starts the RPLidar and sends data continuously in ASCII.
