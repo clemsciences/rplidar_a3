@@ -18,7 +18,7 @@ double msecs()
 	return (double) tv.tv_usec / 1000 + tv.tv_sec * 1000;
 }
 
-RPLidar::RPLidar(const char *serial_path) : port(serial_path, B115200, 0){
+RPLidar::RPLidar(const char *serial_path) : port(serial_path, 256000, 0){
 //	stop_scan();
 }
 
