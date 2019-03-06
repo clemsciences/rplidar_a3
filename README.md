@@ -1,6 +1,8 @@
 # RPLidar A3
 
-This work has begun from https://github.com/Club-INTech/rplidar_a2. 
+This work has begun from https://github.com/Club-INTech/rplidar_a2.
+
+Adaptation of the library to RPLidar A3. Baudrate can be 154200 and 256000.
 
 ## Measures
 
