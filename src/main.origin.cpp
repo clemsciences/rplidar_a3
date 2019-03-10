@@ -30,8 +30,8 @@ int main(int argc, char** argv){
 	DataSocket HL(SERVER_ADDRESS, SERVER_PORT); //Connection to the client
 	RPLidar lidar(argc>1?argv[argc - 1]:"/dev/ttyUSB0"); //Connects to lidar
 	data_wrappers::FullScan current_scan;
-	lidar.print_status(); // Print model, health, sampling rates
-	lidar.stop_motor();
+	//lidar.print_status(); // Print model, health, sampling rates
+	//lidar.stop_motor();
 	/* ************************************
  	*                   TEST MAIN LOOP             *
  	**************************************/
@@ -44,9 +44,13 @@ int main(int argc, char** argv){
 		if(!running) continue;
 		std::cout<<" Connected !"<<std::endl;
 		lidar.stop_scan();
+		std::cout<<"Motor stopped!"<<std::endl;
 		lidar.start_motor();
-		sleep(1);	//Let motor spin
+		std::cout<<"Motor started!"<<std::endl;
+		//sleep(1);	//Let motor spin
+		std::cout<<"Un petit sleep!"<<std::endl;
 		lidar.start_express_scan();
+		std::cout<<"start express scan ok!"<<std::endl;
 		int result;
 		do{
 			//Update current scan (one turn of measurements)
