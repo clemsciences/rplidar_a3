@@ -190,13 +190,14 @@ size_t baudRateArraySize = (sizeof(baudrateArray))/ (sizeof(baudrateArray[0]));
 				    nodes[pos].sync_quality >> RPLIDAR_RESP_MEASUREMENT_QUALITY_SHIFT);
 			    }
 			}
+			/*
+			 * You can see above the result of measures.
+			 * TODO fix it: HL.send_scan() should get as argument the list of measures for one turn.
+			 * For now, send_scan seems to get FullScan as argument. See ReturnDataWrappers.hpp
+			 *
+			 */
 
-			// Data processing: obstacle extraction and Kalman(?)
-
-			//TODO
-
-			//Send the data to client, TODO send obstacle data(not full scan)
-			result=HL.send_scan(op_result);
+			result=HL.send_scan();
 			//	std::cout<<result<<std::endl;
 		}while(result>=0 && running);
 		drv->stop();
@@ -206,6 +207,6 @@ size_t baudRateArraySize = (sizeof(baudrateArray))/ (sizeof(baudrateArray[0]));
 	 *                       STOP ALL                    *
 	 *************************************/
 	drv->stop();
-	drv->stopMotor(); /
+	drv->stopMotor();
 	return 0;
 }
