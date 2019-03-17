@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <csignal>
+#include <vector>
 #include "rplidar.h"
 #include "Com/DataSocket.hpp"
 
@@ -84,6 +85,11 @@ int main(int argc, char** argv){
 	opt_com_path = "/dev/ttyUSB0";
 	_u32         baudrateArray[2] = {115200, 256000};
 	_u32         opt_com_baudrate = 0;
+	ostringstream measureStream;
+	string measure;
+
+	vector<string> measures;
+
 	u_result     op_result;
 
 
@@ -188,7 +194,12 @@ size_t baudRateArraySize = (sizeof(baudrateArray))/ (sizeof(baudrateArray[0]));
 				    (nodes[pos].angle_q6_checkbit >> RPLIDAR_RESP_MEASUREMENT_ANGLE_SHIFT)/64.0f,
 				    nodes[pos].distance_q2/4.0f,
 				    nodes[pos].sync_quality >> RPLIDAR_RESP_MEASUREMENT_QUALITY_SHIFT);
+				measureStream << std::fixed << std::setprecision(2)  << (nodes[pos].angle_q6_checkbit >> RPLIDAR_RESP_MEASUREMENT_ANGLE_SHIFT)/64.0f <<
+				 ":" << std::fixed << std::setprecision(2) <<nodes[pos].distance_q2/4.0f;
+				measure = measureStrem.str();
+				measures.push_back(measure);
 			    }
+				
 			}
 
 			// Data processing: obstacle extraction and Kalman(?)
@@ -196,7 +207,7 @@ size_t baudRateArraySize = (sizeof(baudrateArray))/ (sizeof(baudrateArray[0]));
 			//TODO
 
 			//Send the data to client, TODO send obstacle data(not full scan)
-			result=HL.send_scan(op_result);
+			result=HL.send_data(op_result);
 			//	std::cout<<result<<std::endl;
 		}while(result>=0 && running);
 		drv->stop();
