@@ -1,10 +1,4 @@
-//
-// Created by tic-tac on 10/19/18.
-//
-
-
-
-#include "Com/DataSocket.hpp"
+#include "../../include/Com/DataSocket.hpp"
 
 DataSocket::DataSocket(const char *address_string, uint16_t server_port) {
 	//Create socket
@@ -59,18 +53,9 @@ bool DataSocket::accept_client() {
 	}
 }
 
-int DataSocket::send_scan(data_wrappers::FullScan &scan) {
-	ssize_t size=(15)*scan.size();
-	char* send_buffer=new char[size];
-//	std::cout<<size<<" bytes allocated."<<std::endl;
-	char* cursor=send_buffer;
-	for(data_wrappers::Measurement& measure : scan){
-		cursor+=sprintf(cursor,"%d:%.2f;", measure.distance, measure.angle);
-	}
-	sprintf(cursor, "\n");
-//	printf("%d bytes written, %s",(int)(cursor-send_buffer),  send_buffer);
-	int result=send(client_socket, send_buffer, strlen(send_buffer), 0);
-	delete[] send_buffer;
+int DataSocket::send_data(char* data) {
+
+	int result=send(client_socket, data, strlen(data), 0);
 	if(result<0){
 		if(errno==EPIPE || errno==ECONNRESET)
 			std::cout<<"Client disconnected"<<std::endl;
@@ -78,6 +63,7 @@ int DataSocket::send_scan(data_wrappers::FullScan &scan) {
 			perror("Error sending data to client");
 		}
 	}
-	return result;
+
+    return result;
 }
 

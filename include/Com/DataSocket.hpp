@@ -1,9 +1,5 @@
-//
-// Created by tic-tac on 10/19/18.
-//
-
-#ifndef RPLIDAR_A2_DATASOCKET_HPP
-#define RPLIDAR_A2_DATASOCKET_HPP
+#ifndef LIDAR_COM_HPP
+#define LIDAR_COM_HPP
 
 #include <iostream>
 #include <sys/socket.h>
@@ -11,18 +7,15 @@
 #include <fcntl.h>
 #include <netinet/in.h>
 
-#include <LidarWrapper/ReturnDataWrappers.hpp>
-
 class DataSocket {
 public:
 	int server_socket=0;
 	int client_socket=0;
 	struct sockaddr_in server_address;
-public:
 	DataSocket(const char *address_string, uint16_t server_port);
-	bool accept_client();
-	int send_scan(data_wrappers::FullScan &scan);
+	int send_data(char* data);
+    bool accept_client();
 };
 
 
-#endif //RPLIDAR_A2_DATASOCKET_HPP
+#endif
