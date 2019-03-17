@@ -201,13 +201,12 @@ size_t baudRateArraySize = (sizeof(baudrateArray))/ (sizeof(baudrateArray[0]));
 			    }
 				
 			}
-
 			// Data processing: obstacle extraction and Kalman(?)
 
 			//TODO
 
 			//Send the data to client, TODO send obstacle data(not full scan)
-			result=HL.send_data(op_result);
+			result=HL.send_data(measures);
 			//	std::cout<<result<<std::endl;
 		}while(result>=0 && running);
 		drv->stop();
@@ -217,6 +216,6 @@ size_t baudRateArraySize = (sizeof(baudrateArray))/ (sizeof(baudrateArray[0]));
 	 *                       STOP ALL                    *
 	 *************************************/
 	drv->stop();
-	drv->stopMotor(); /
+	drv->stopMotor();
 	return 0;
 }
