@@ -20,7 +20,10 @@ an is the angle in degrees in float for the Nth point
 N might vary
 
 ## Compilation
+
+```bash
 $ git clone https://github.com/clemsciences/rplidar_a3.git
 $ cd rplidar_a3
 $ cmake CMakeLists.txt
 $ make 
+```
