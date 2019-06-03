@@ -83,9 +83,6 @@ int main(int argc, char** argv) {
 
     printf("SDK Version: %s\n", RPLIDAR_SDK_VERSION);
 
-    ostringstream measureStream;
-    string measure;
-
     DataSocket output_socket;
     const char *opt_com_path = DEFAULT_SERIAL_PORT;
     _u32 opt_com_baudrate = DEFAULT_BAUDRATE;
@@ -187,13 +184,13 @@ int main(int argc, char** argv) {
 		}
 
 		// spin motor...
-		runMotor(motor_speed);
+		 drv->startMotor();
 		// start scan...
 		printf("startScanExpress\n");
 		op_result = drv->startScanExpress(false, LIDAR_SCAN_MODE, 0, &scanmode);
 		if (IS_FAIL(op_result)) {
 			drv->stop();
-			runMotor(0);
+			drv->stopMotor();
 			fprintf(stderr, "Failed to start scan\n");
 			delay((unsigned long long)1000);
 			continue;
@@ -246,14 +243,14 @@ int main(int argc, char** argv) {
 		}
 		if (!ctrl_c_pressed) {
 			drv->stop();
-			runMotor(0);
+			drv->stopMotor();
 			fprintf(stderr, "Lidar disconnected\n");
 		}
 	}
 	printf("End of program\n");
 	drv->stop();
 	drv->disconnect();
-	runMotor(0);
+	drv->stopMotor();
 	RPlidarDriver::DisposeDriver(drv);
 	drv = NULL;
 	return 0;
