@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
-#include <pigpio.h>
 
 #include "rplidar.h" //RPLIDAR standard sdk, all-in-one header
 #include "DataSocket.hpp"
@@ -20,7 +19,7 @@
 /* Settings */
 #define SERVER_ADDRESS      "127.0.0.1"
 #define SERVER_PORT         17685
-#define DEFAULT_SERIAL_PORT "/dev/ttyAMA0"
+#define DEFAULT_SERIAL_PORT "/dev/ttyUSB0"
 #define DEFAULT_BAUDRATE    256000
 #define DEFAULT_MOTOR_SPEED 65.0    // % of the maximum speed
 #define MAX_FAILURE_COUNT   0       // maximum consecutive scan failures allowed before restarting the lidar
